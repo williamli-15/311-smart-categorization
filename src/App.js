@@ -32,7 +32,7 @@ class App extends Component {
       <Router basename="/311SmartCategorization">
         <div className="App">
           <Container>
-            <Navbar collapseOnSelect className="app-nav-bar" variant="dark" expand="lg">
+            <Navbar collapseOnSelect className="app-nav-bar hidden" variant="dark" expand="lg">
               <Navbar.Brand as={Link} to="/">GSOC Prototype 0703</Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
