@@ -1,9 +1,11 @@
 {
   "name": "tfjs-web-app",
+  "homepage": "https://williamli-15.github.io/311-smart-categorization",
   "version": "0.1.0",
   "private": true,
   "license": "Apache-2.0",
   "dependencies": {
+    "@khmyznikov/pwa-install": "^0.3.9",
     "@tensorflow/tfjs": "^1.2.7",
     "bootstrap": "^4.3.1",
     "cors": "^2.8.5",
@@ -23,6 +25,7 @@
     "start": "HOST=10.228.40.248 NODE_OPTIONS=--openssl-legacy-provider react-scripts start",
     "start-dev": "concurrently --kill-others-on-fail \"node server.js\" \"yarn start\"",
     "build": "NODE_OPTIONS=--openssl-legacy-provider react-scripts build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start-prod": "node server.js",
@@ -45,6 +48,7 @@
   },
   "devDependencies": {
     "concurrently": "^4.1.0",
+    "gh-pages": "^6.1.1",
     "tailwindcss": "^3.4.4"
   }
 }
