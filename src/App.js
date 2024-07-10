@@ -1,6 +1,6 @@
 import { PropTypes } from 'prop-types';
 import React, { Component } from 'react';
-import { Link, BrowserRouter as Router } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import AlertDismissable from './components/AlertDismissable';
 import Routes from './Routes';
@@ -29,7 +29,6 @@ class App extends Component {
 
   render() {
     return (
-      <Router basename="/311SmartCategorization">
         <div className="App">
           <Container>
             <Navbar collapseOnSelect className="app-nav-bar hidden" variant="dark" expand="lg">
@@ -62,7 +61,6 @@ class App extends Component {
             <Routes />
           </Container>
         </div>
-      </Router>
     );
   }
 }
@@ -71,4 +69,4 @@ App.propTypes = {
   updateAvailable: PropTypes.bool.isRequired,
 };
 
-export default App;
+export default withRouter(App);
