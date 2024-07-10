@@ -9,7 +9,7 @@ import Frame5 from './pages/Frame5';
 import Classify from './pages/Classify';
 import NotFound from './pages/NotFound';
 
-export default ({ childProps }) =>
+const Routes = ({ childProps }) => (
   <Switch>
     <Route path="/" exact component={Classify} props={childProps} />
     <Route path="/about" exact component={About} props={childProps} />
@@ -19,4 +19,7 @@ export default ({ childProps }) =>
     <Route path="/frame4" exact component={Frame4} props={childProps} />
     <Route path="/frame5" exact component={Frame5} props={childProps} />
     <Route component={NotFound} />
-  </Switch>;
+  </Switch>
+);
+
+export default Routes;
