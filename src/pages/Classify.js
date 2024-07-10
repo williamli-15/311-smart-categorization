@@ -17,7 +17,7 @@ const MODEL_PATH = `${process.env.PUBLIC_URL}/model/model.json`;
 const IMAGE_SIZE = 224;
 const CANVAS_SIZE = 224;
 const TOPK_PREDICTIONS = 3;
-const PROBABILITY_THRESHOLD = 33; // Example threshold, meaning 33%
+const PROBABILITY_THRESHOLD = 11; // Example threshold, meaning 11%
 
 const INDEXEDDB_DB = 'tensorflowjs';
 const INDEXEDDB_STORE = 'model_info_store';
@@ -551,7 +551,7 @@ export default class Classify extends Component {
                         onClick={() => this.handleListGroupItemClick(category.className)}  // Pass the category name
                         style={{ cursor: 'pointer' }}  // Optionally add a pointer cursor to improve UX
                       >
-                        <strong>{category.className}</strong>
+                        <strong>{category.className}</strong> {category.probability}%
                       </ListGroup.Item>
                     );
                   })}
