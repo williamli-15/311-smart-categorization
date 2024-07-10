@@ -1,17 +1,26 @@
 import React, { Component } from 'react';
+import MapComponent from '../components/MapComponent'; // Adjust the path as necessary
 
 class Frame3 extends Component {
   render() {
+
+    // Access the selected category from props passed via router
+    const { selectedCategory, imageDataUrl } = this.props.location.state;  // Access the image data URL and category
+
+    // Get today's date
+    const today = new Date();
+    const formattedDate = `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`;
+
     return (
       <div className="flex flex-col items-center w-full max-w-md mx-auto p-4">
         <h1 className="text-2xl font-bold text-center mb-4">Request Services from the City of Boston</h1>
         <div className="w-full mb-4">
-          <h2 className="text-lg font-semibold">Pothole Report</h2>
-          <p className="text-sm">6/10/25</p>
+          <h2 className="text-lg font-semibold">{selectedCategory} Report</h2>  {/* Dynamically set the title */}
+          <p className="text-sm">{formattedDate}</p>  {/* Display today's date */}
           <img 
-            src="/placeholder.svg" 
-            alt="Pothole" 
-            className="w-24 h-24 mt-2" 
+            src={imageDataUrl}  // Use the passed data URL here
+            alt={selectedCategory}
+            className="w-24 h-24 mt-2 mx-auto"  // auto margins
             width="100"
             height="100" 
             style={{ aspectRatio: '100 / 100', objectFit: 'cover' }} 
@@ -19,14 +28,7 @@ class Frame3 extends Component {
         </div>
         <div className="w-full mb-4">
           <h2 className="text-lg font-semibold">Confirm Location</h2>
-          <img 
-            src="/placeholder.svg" 
-            alt="Map"
-            className="w-full h-48 mt-2" 
-            width="300" 
-            height="200" 
-            style={{ aspectRatio: '300 / 200', objectFit: 'cover' }} 
-          />
+          <MapComponent /> {/* This replaces the placeholder image */}
         </div>
         <div className="w-full mb-4">
           <p className="text-sm font-semibold">
