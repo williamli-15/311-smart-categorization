@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/311-smart-categorization/static/css/main.944b0a00.css",
-    "main.js": "/311-smart-categorization/static/js/main.e6ca6f7a.js",
+    "main.js": "/311-smart-categorization/static/js/main.d158489c.js",
     "index.html": "/311-smart-categorization/index.html",
     "main.944b0a00.css.map": "/311-smart-categorization/static/css/main.944b0a00.css.map",
-    "main.e6ca6f7a.js.map": "/311-smart-categorization/static/js/main.e6ca6f7a.js.map"
+    "main.d158489c.js.map": "/311-smart-categorization/static/js/main.d158489c.js.map"
   },
   "entrypoints": [
     "static/css/main.944b0a00.css",
-    "static/js/main.e6ca6f7a.js"
+    "static/js/main.d158489c.js"
   ]
 }
