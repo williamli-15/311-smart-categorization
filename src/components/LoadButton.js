@@ -13,8 +13,15 @@ const LoadButton = ({
   ...props
 }) => (
   <Button
+    type="button"
     className={`LoadButton ${className}`}
     disabled={disabled || isLoading}
+    onClick={(e) => {
+      e.preventDefault();
+      if (onClick) {
+        onClick(e);
+      }
+    }}
     {...props}
   >
     {isLoading && <Spinner
