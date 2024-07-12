@@ -10,6 +10,7 @@ const LoadButton = ({
   loadingText,
   className = '',
   disabled = false,
+  onClick,
   ...props
 }) => (
   <Button
