@@ -19,6 +19,16 @@ app.get('/api/model_info', (req, res) => {
 
 app.use(express.static(path.join(__dirname, 'build')));
 
+// Serve service-worker.js with correct MIME type
+app.get('/service-worker.js', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'service-worker.js'), {
+    headers: {
+      'Content-Type': 'application/javascript',
+      'Cache-Control': 'no-cache'
+    }
+  });
+});
+
 app.get('/*', function (req, res) {
    res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
