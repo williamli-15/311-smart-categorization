@@ -61,7 +61,6 @@ class App extends Component {
         <Container>
           <Routes />
         </Container>
-        <PWAInstallComponent></PWAInstallComponent>
       </div>
     );
   }

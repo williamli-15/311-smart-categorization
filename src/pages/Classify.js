@@ -1,4 +1,4 @@
-import React, { Component, Fragment, createRef } from 'react';
+import React, { Component, Fragment } from 'react';
 import {
   Alert, Button, Collapse, Container, Form, Spinner, ListGroup, Tabs, Tab
 } from 'react-bootstrap';
@@ -13,11 +13,10 @@ import './Classify.css';
 import 'cropperjs/dist/cropper.css';
 
 
-const MODEL_PATH = `${process.env.PUBLIC_URL}/model/model.json`;
+const MODEL_PATH = '/model/model.json';
 const IMAGE_SIZE = 224;
 const CANVAS_SIZE = 224;
-const TOPK_PREDICTIONS = 3;
-const PROBABILITY_THRESHOLD = 11; // Example threshold, meaning 11%
+const TOPK_PREDICTIONS = 5;
 
 const INDEXEDDB_DB = 'tensorflowjs';
 const INDEXEDDB_STORE = 'model_info_store';
@@ -31,7 +30,6 @@ export default class Classify extends Component {
 
   constructor(props) {
     super(props);
-    this.fileInputRef = React.createRef(); // Create a ref
 
     this.webcam = null;
     this.model = null;
@@ -40,7 +38,6 @@ export default class Classify extends Component {
     this.state = {
       modelLoaded: false,
       filename: '',
-      photoTaken: false, // Add this to manage the visibility
       isModelLoading: false,
       isClassifying: false,
       predictions: [],
@@ -52,7 +49,7 @@ export default class Classify extends Component {
     };
   }
 
-  async componentDidMount() {    
+  async componentDidMount() {
     if (('indexedDB' in window)) {
       try {
         this.model = await tf.loadLayersModel('indexeddb://' + INDEXEDDB_KEY);
@@ -129,7 +126,7 @@ export default class Classify extends Component {
       );
     }
     catch (e) {
-      // this.refs.noWebcam.style.display = 'block';
+      this.refs.noWebcam.style.display = 'block';
     }
   }
 
@@ -277,18 +274,14 @@ export default class Classify extends Component {
   }
 
   handlePanelClick = event => {
-    // this.setState({ photoSettingsOpen: !this.state.photoSettingsOpen });
-    this.setState(prevState => ({
-      photoSettingsOpen: prevState.photoTaken ? !prevState.photoSettingsOpen : false
-    }));
+    this.setState({ photoSettingsOpen: !this.state.photoSettingsOpen });
   }
 
   handleFileChange = event => {
     if (event.target.files && event.target.files.length > 0) {
       this.setState({
         file: URL.createObjectURL(event.target.files[0]),
-        filename: event.target.files[0].name,
-        photoTaken: true  // Set this to true when a photo is taken
+        filename: event.target.files[0].name
       });
     }
   }
@@ -306,96 +299,8 @@ export default class Classify extends Component {
     }
   }
 
-  handleCameraClick = () => {
-    if (this.fileInputRef.current) {
-        this.fileInputRef.current.click(); // Programmatically click the file input
-    }
-  }
-
-  handleListGroupItemClick = (categoryName) => {
-    // Get the canvas and convert to data URL
-    const canvas = this.refs.canvas;
-    const imageDataUrl = canvas.toDataURL('image/png');
-  
-    // Pass the category name and the image data URL to Frame3 via routing
-    this.props.history.push({
-      pathname: '/frame3',
-      state: {
-        selectedCategory: categoryName,
-        imageDataUrl: imageDataUrl  // Pass this data URL
-      }
-    });
-  }  
-    
-  handleSearchClick = () => {
-    // Implement or call search functionality
-    console.log('Search button clicked');
-  }
-
   render() {
     return (
-<div>
-      <div class="flex flex-col items-center w-full max-w-md mx-auto p-4 space-y-8">
-        <h1 class="text-2xl font-bold text-center">Request Services from the City of Boston</h1>
-
-      {!this.state.photoTaken && this.state.modelLoaded && (
-      <div>
-        <div className="flex flex-col items-center space-y-2">
-          <div className="flex items-center justify-center w-full h-48 bg-gray-300">
-              <button 
-              onClick={this.handleCameraClick}
-              className="flex justify-center items-center w-full h-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              aria-label="Use camera to report an issue"
-              >
-              <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="w-12 h-12 text-gray-500"
-              >
-                  <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
-                  <circle cx="9" cy="9" r="2"></circle>
-                  <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
-              </svg>
-              </button>
-          </div>
-          <p className="text-center">Use your camera to report an issue.</p>
-        </div>
-        <div class="flex flex-col items-center space-y-2">
-          <div class="flex items-center justify-center w-full h-48 bg-gray-300">
-            <button class="justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 flex items-center space-x-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="w-4 h-4"
-              >
-                <circle cx="11" cy="11" r="8"></circle>
-                <path d="m21 21-4.3-4.3"></path>
-              </svg>
-              <span>Search</span>
-            </button>
-          </div>
-          <p class="text-center">Search our library of available services</p>
-        </div>
-      </div>
-      )}
-      </div>
-
-
-
       <div className="Classify container">
 
       { !this.state.modelLoaded &&
@@ -411,11 +316,11 @@ export default class Classify extends Component {
         <Fragment>
         <Button
           onClick={this.handlePanelClick}
-          className="classify-panel-header hidden"
+          className="classify-panel-header"
           aria-controls="photo-selection-pane"
           aria-expanded={this.state.photoSettingsOpen}
           >
-          {/* Take or Select a Photo to Classify */}
+          Take or Select a Photo to Classify
             <span className='panel-arrow'>
             { this.state.photoSettingsOpen
               ? <FaChevronDown />
@@ -423,7 +328,7 @@ export default class Classify extends Component {
             }
             </span>
           </Button>
-          <Collapse in={this.state.photoSettingsOpen && this.state.photoTaken}>
+          <Collapse in={this.state.photoSettingsOpen}>
             <div id="photo-selection-pane">
             { this.state.modelUpdateAvailable && this.state.showModelUpdateAlert &&
                 <Container>
@@ -461,9 +366,9 @@ export default class Classify extends Component {
                   </Alert>
                 </Container>
               }
-            {/* <Tabs defaultActiveKey="localfile" id="input-options" onSelect={this.handleTabSelect}
-                  className="justify-content-center"> */}
-              {/* <Tab eventKey="camera" title="Take Photo">
+            <Tabs defaultActiveKey="camera" id="input-options" onSelect={this.handleTabSelect}
+                  className="justify-content-center">
+              <Tab eventKey="camera" title="Take Photo">
                 <div id="no-webcam" ref="noWebcam">
                   <span className="camera-icon"><FaCamera /></span>
                   No camera found. <br />
@@ -486,20 +391,17 @@ export default class Classify extends Component {
                     loadingText="Classifying..."
                   />
                 </div>
-              </Tab> */}
-              {/* <Tab eventKey="localfile" title="Select Local File"> */}
+              </Tab>
+              <Tab eventKey="localfile" title="Select Local File">
                 <Form.Group controlId="file">
-                  {/* <Form.Label></Form.Label><br /> */}
-                  {/* <Form.Label className="imagelabel">
-                    {this.state.filename ? this.state.filename : ''}
-                  </Form.Label> */}
-                  <Form.Label className="imagelabel">Retake</Form.Label>
+                  <Form.Label>Select Image File</Form.Label><br />
+                  <Form.Label className="imagelabel">
+                    {this.state.filename ? this.state.filename : 'Browse...'}
+                  </Form.Label>
                   <Form.Control
-                    ref={this.fileInputRef}  // Attach the ref here
                     onChange={this.handleFileChange}
                     type="file"
                     accept="image/*"
-                    capture="environment" // Enables default camera usage
                     className="imagefile" />
                 </Form.Group>
                 { this.state.file &&
@@ -510,9 +412,7 @@ export default class Classify extends Component {
                         src={this.state.file}
                         style={{height: 400, width: '100%'}}
                         guides={true}
-                        // aspectRatio={1 / 1}
-                        aspectRatio={null}  // Set this to `null` if you don't want a fixed aspect ratio
-                        autoCropArea={1}  // This ensures the crop box initializes to cover the entire image
+                        aspectRatio={1 / 1}
                         viewMode={2}
                       />
                     </div>
@@ -529,45 +429,28 @@ export default class Classify extends Component {
                     </div>
                   </Fragment>
                 }
-              {/* </Tab> */}
-            {/* </Tabs> */}
+              </Tab>
+            </Tabs>
             </div>
           </Collapse>
           { this.state.predictions.length > 0 &&
             <div className="classification-results">
-              {/* <h3>Predictions</h3> */}
+              <h3>Predictions</h3>
               <canvas ref="canvas" width={CANVAS_SIZE} height={CANVAS_SIZE} />
-              <div class="text-lg">
-                <p class="font-bold">Are you reporting one of the following?</p>
-              </div>
               <br />
               <ListGroup>
-                {this.state.predictions
-                  .filter(category => category.probability >= PROBABILITY_THRESHOLD)
-                  .map((category) => {
-                    return (
-                      <ListGroup.Item
-                        key={category.className}
-                        onClick={() => this.handleListGroupItemClick(category.className)}  // Pass the category name
-                        style={{ cursor: 'pointer' }}  // Optionally add a pointer cursor to improve UX
-                      >
-                        <strong>{category.className}</strong> {category.probability}%
-                      </ListGroup.Item>
-                    );
-                  })}
+              {this.state.predictions.map((category) => {
+                  return (
+                    <ListGroup.Item key={category.className}>
+                      <strong>{category.className}</strong> {category.probability}%</ListGroup.Item>
+                  );
+              })}
               </ListGroup>
-              <br />
-              <br />
-              <p class="text-lg">
-                <span class="font-bold">Something else? Search our service library</span> 
-              </p>
             </div>
           }
           </Fragment>
         }
       </div>
-
-</div>
     );
   }
 }
