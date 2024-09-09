@@ -6,7 +6,9 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@khmyznikov/pwa-install": "^0.3.9",
-    "@tensorflow/tfjs": "^1.2.7",
+    "@tensorflow/tfjs": "^4.20.0",
+    "@turf/helpers": "^7.0.0",
+    "@turf/point-to-line-distance": "^7.0.0",
     "bootstrap": "^4.3.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
@@ -22,7 +24,7 @@
     "react-scripts": "^5.0.1"
   },
   "scripts": {
-    "start": "NODE_OPTIONS=--openssl-legacy-provider react-scripts start",
+    "start": "NODE_OPTIONS=--openssl-legacy-provider react-scripts start --host 10.0.0.110",
     "start-dev": "concurrently --kill-others-on-fail \"node server.js\" \"yarn start\"",
     "build": "PUBLIC_URL=/ NODE_OPTIONS=--openssl-legacy-provider react-scripts build",
     "test": "react-scripts test",

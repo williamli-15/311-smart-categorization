@@ -84,7 +84,6 @@
 
 .Classify #photo-selection-pane {
   padding: 12px;
-  background: #fcfcfc;
   padding-top: 12px;
   padding-bottom: 12px;
 }
@@ -104,8 +103,4 @@
   padding-left: 12px;
   font-size: 36px;
   font-weight: 600;
-}
-
-.hidden {
-  display: none;
 }

@@ -4,17 +4,23 @@ import { Button, Spinner } from 'react-bootstrap';
 /**
  * This produces a button that will have a loading animation while the isLoading property is true.
  */
-export default ({
+const LoadButton = ({
   isLoading,
   text,
   loadingText,
   className = '',
   disabled = false,
+  onClick,  // Add onClick prop
   ...props
-}) =>
+}) => (
   <Button
+    type="button"  // Add type="button" to prevent form submission
     className={`LoadButton ${className}`}
     disabled={disabled || isLoading}
+    onClick={(e) => {
+      e.preventDefault(); // Prevent default behavior
+      if (onClick) onClick(e); // Call passed onClick handler
+    }}
     {...props}
   >
     {isLoading && <Spinner
@@ -25,4 +31,7 @@ export default ({
       aria-hidden="true"
     />}{' '}
     {isLoading ? loadingText : text}
-  </Button>;
+  </Button>
+);
+
+export default LoadButton;

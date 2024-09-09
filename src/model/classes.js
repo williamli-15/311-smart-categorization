@@ -2,13 +2,13 @@
 // Theses classes should correspond to the softmax output of your model.
 
 export const MODEL_CLASSES = {
-  0: 'Poor Conditions of Property',
-  1: 'Pick up Dead Animal',
-  2: 'Requests for Street Cleaning',
-  3: 'Sign Repair',
-  4: 'Parking Enforcement',
-  5: 'Improper Storage of Trash (Barrels)',
-  6: 'Sidewalk Repair (Make Safe)',
-  7: 'Needle Pickup',
-  8: 'Request for Pothole Repair',
+  0: 'Improper Storage of Trash (Barrels)',
+  1: 'Needle Pickup',
+  2: 'Parking Enforcement',
+  3: 'Pick up Dead Animal',
+  4: 'Poor Conditions of Property',
+  5: 'Request for Pothole Repair',
+  6: 'Requests for Street Cleaning',
+  7: 'Sidewalk Repair (Make Safe)',
+  8: 'Sign Repair',
 };

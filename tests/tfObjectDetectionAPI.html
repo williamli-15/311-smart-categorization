@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Object Detection with TensorFlow.js</title>
+</head>
+<body>
+  <h1>Object Detection using TensorFlow.js</h1>
+  
+  <!-- Load TensorFlow.js. This is required to use coco-ssd model. -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+  <!-- Load the coco-ssd model. -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+
+  <!-- Replace this with your image. Make sure CORS settings allow reading the image! -->
+  <img id="img" src="asmbzsbib0jsbdlf00wj.jpg" alt="Image for Object Detection" style="max-width: 100%; height: auto;"/>
+
+  <h2>Predictions:</h2>
+  <ul id="predictions"></ul>
+
+  <script>
+    // Define the classes that might be related to trash
+    const trashClasses = ['trash can'];
+
+    // Get the image element by its ID
+    const img = document.getElementById('img');
+    const predictionsList = document.getElementById('predictions');
+
+    // Load the coco-ssd model and make predictions
+    cocoSsd.load().then(model => {
+      model.detect(img).then(predictions => {
+        console.log('Predictions: ', predictions);
+        // Filter predictions for trash-related classes
+        const trashPredictions = predictions.filter(prediction => trashClasses.includes(prediction.class));
+
+        // Display trash-related predictions on the webpage
+        if (trashPredictions.length > 0) {
+          trashPredictions.forEach(prediction => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${prediction.class} - ${Math.round(prediction.score * 100)}% confidence`;
+            predictionsList.appendChild(listItem);
+          });
+        } else {
+          predictionsList.textContent = 'No trash can detected.';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
