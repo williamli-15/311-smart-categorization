@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - MediaPipe Object Detection for web</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<h1>Multiple object detection using the MediaPipe Object Detector task</h1>
+
+<section id="demos" class="invisible">
+  <h2>Upload Image for Object Detection</h2>
+  <p><b>Upload an image below</b> to detect objects in the image.</p>
+
+  <!-- Image Upload Input -->
+  <input type="file" id="imageUpload" accept="image/*" />
+
+  <!-- Container to display the uploaded image -->
+  <div id="uploadedImageContainer" class="detectOnClick">
+    <img id="uploadedImage" width="100%" crossorigin="anonymous" />
+  </div>
+
+  <h2>Demo: Webcam continuous detection</h2>
+  <p>Hold some objects up close to your webcam to get a real-time detection! When ready, click "enable webcam" below and accept access to the webcam.</p>
+  <div id="liveView" class="videoView">
+    <button id="webcamButton" class="mdc-button mdc-button--raised">
+      <span class="mdc-button__ripple"></span>
+      <span class="mdc-button__label">ENABLE WEBCAM</span>
+    </button>
+    <video id="webcam" autoplay playsinline></video>
+  </div>
+</section>
+<!-- partial -->
+  <script type="module" src="./script.js"></script>
+
+</body>
+</html>
