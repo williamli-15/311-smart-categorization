@@ -1,4 +1,86 @@
-# Google Summer of Code 2024 - Final Report
+# 311 Smart Categorization
+
+AI-powered Progressive Web App (PWA) for categorizing Boston 311 city service requests using image classification.
+
+---
+
+## 🚀 Overview
+
+This project helps automatically categorize Boston 311 service requests using AI.
+
+Users upload an image of a civic issue (potholes, trash, sidewalk damage), and the app predicts the correct category and routes the request to the right city department.
+
+The goal is to reduce manual work and improve response time for city services.
+
+---
+
+## 🛠️ Tech Stack
+
+Frontend:
+- React
+- Tailwind CSS
+- Progressive Web App (PWA)
+
+Backend:
+- Node.js
+- Express
+
+Machine Learning:
+- TensorFlow.js
+- MobileNet Image Classification Model
+
+Cloud:
+- Firebase Hosting
+- AWS SageMaker (Model Training)
+
+---
+
+## 🛠️ How to Run Locally
+
+### Prerequisites
+Install:
+- Node.js (v16+)
+- npm
+- Git
+
+Check versions:
+node -v  
+npm -v  
+git --version  
+
+### Install dependencies
+npm install
+
+### Start backend
+node server.js
+
+### Start frontend (new terminal)
+npm run dev
+
+### Run tests
+npm test
+
+---
+
+## 📁 Project Structure
+
+src → React frontend  
+public → Static assets  
+tests → Unit tests  
+server.js → Backend server  
+
+---
+
+## 🤝 Contributing
+
+1. Fork the repo  
+2. Create a branch  
+3. Make changes  
+4. Push branch  
+5. Create Pull Request  
+
+
+# 📄 Google Summer of Code 2024 - Final Report
 
 ## Project Title: Requesting City Services via AI-Driven Apps
 
