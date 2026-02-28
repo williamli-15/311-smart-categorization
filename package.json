@@ -24,7 +24,7 @@
     "react-scripts": "^5.0.1"
   },
   "scripts": {
-    "start": "NODE_OPTIONS=--openssl-legacy-provider react-scripts start --host 10.0.0.110",
+    "start": "NODE_OPTIONS=--openssl-legacy-provider react-scripts start",
     "start-dev": "concurrently --kill-others-on-fail \"node server.js\" \"yarn start\"",
     "build": "PUBLIC_URL=/ NODE_OPTIONS=--openssl-legacy-provider react-scripts build",
     "test": "react-scripts test",
